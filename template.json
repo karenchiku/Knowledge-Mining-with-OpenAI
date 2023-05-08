@@ -1038,7 +1038,7 @@
             "apiVersion": "2022-03-01",
             "name": "[format('{0}/{1}', parameters('FunctionApp'), 'web')]",
             "properties": {
-            "repoUrl": "https://github.com/labcsu/Knowledge-Mining-with-OpenAI/",
+            "repoUrl": "https://github.com/karenchiku/Knowledge-Mining-with-OpenAI/",
             "branch": "main",
             "isManualIntegration": true
             },
