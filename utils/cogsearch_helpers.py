@@ -69,6 +69,7 @@ def create_semantic_search_index():
             fields=[
                 SimpleField(name="id", type="Edm.String", key=True),
                 SearchableField(name="content", type="Edm.String", analyzer_name="en.microsoft"),
+                SearchableField(name="text", type="Edm.String", analyzer_name="en.microsoft"),
                 SimpleField(name="category", type="Edm.String", filterable=True, facetable=True),
                 SimpleField(name="sourcefile", type="Edm.String", filterable=True, facetable=True),
                 SimpleField(name="container", type="Edm.String", filterable=True, facetable=True),
@@ -80,7 +81,7 @@ def create_semantic_search_index():
                 configurations=[SemanticConfiguration(
                     name='default',
                     prioritized_fields=PrioritizedFields(
-                        title_field=None, prioritized_content_fields=[SemanticField(field_name='content')]))])
+                        title_field=None, prioritized_content_fields=[SemanticField(field_name='content'),SemanticField(field_name='text')]))])
         )
 
         try:
@@ -141,6 +142,7 @@ def index_semantic_sections(sections):
         dd = {
             "id": s['id'],
             "content": s['text_en'],
+            "text": s['text'],
             "category": s['access'],
             "sourcefile": s['doc_url'],
             "orig_lang": s['orig_lang'],
@@ -192,7 +194,7 @@ def create_skillset():
     ocr_skill = OcrSkill(name="ocr_skill", inputs=[image_input], outputs=[image_text_output],
                          context="/document/normalized_images/*", description="Extract text (plain and structured) from image",
                          should_detect_orientation=True,
-                         default_language_code="en", line_ending="Space"
+                         default_language_code="zh-Hant", line_ending="Space"
                          )
 
     merge_skill = MergeSkill(name="merge_skill", inputs=[text_input, image_text_input, offsetstex_input], outputs=[merge_text_output],
