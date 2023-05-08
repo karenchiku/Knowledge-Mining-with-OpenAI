@@ -160,6 +160,9 @@ create_index_json = {
                     "prioritizedContentFields": [
                         {
                             "fieldName": "text_en"
+                        },
+                        {
+                            "fieldName": "text"
                         }
                     ],
                     "prioritizedKeywordsFields": [
